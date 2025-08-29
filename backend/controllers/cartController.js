@@ -1,5 +1,4 @@
-const {Book}=require("../models/Book")
-const {Cart}=require("../models/Cart")
+const Cart=require("../models/Cart")
 
 const addToCart=async(req,res)=>{
     try{
@@ -44,7 +43,7 @@ const updateCartItem=async(req,res)=>{
             res.status(404).json({message:"Cart not found"})
 
         const itemIndex=cart.items.findIndex(i=>i.book.toString()===bookId)
-        if(itemIndex==1)
+        if(itemIndex==-1)
             return res.status(404).json({message:"Book not in cart"})
 
         if(quantity<=0)

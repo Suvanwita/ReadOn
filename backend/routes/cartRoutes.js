@@ -1,5 +1,5 @@
 const express=require('express')
-const {cartController}=require("../controllers/cartController")
+const {addToCart,getCart,updateCartItem,removeFromCart,clearCart}=require("../controllers/cartController")
 const {protect}=require("../middleware/authMiddleware")
 
 const router=express.Router()
