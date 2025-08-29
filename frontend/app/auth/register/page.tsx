@@ -29,32 +29,32 @@ export default function RegisterPage() {
 
   return (
     <div className="max-w-md mx-auto bg-white p-6 rounded-2xl shadow mt-10">
-      <h2 className="text-2xl font-bold mb-2">Create account</h2>
-      <p className="text-gray-500 mb-4">Join Book Tracker in seconds.</p>
+      <h2 className="text-2xl font-bold mb-2 text-gray-800">Create account</h2>
+      <p className="text-gray-700 mb-4">Join Book Tracker in seconds.</p>
 
       <form onSubmit={onSubmit} className="space-y-3">
         <input
           type="text"
           required
           placeholder="Name"
-          className="w-full border rounded p-2"
+          className="w-full border rounded p-2 text-gray-700"
           value={name} onChange={(e)=>setName(e.target.value)}
         />
         <input
           type="email"
           required
           placeholder="Email"
-          className="w-full border rounded p-2"
+          className="w-full border rounded p-2 text-gray-700"
           value={email} onChange={(e)=>setEmail(e.target.value)}
         />
         <input
           type="password"
           required
           placeholder="Password"
-          className="w-full border rounded p-2"
+          className="w-full border rounded p-2 text-gray-700"
           value={password} onChange={(e)=>setPassword(e.target.value)}
         />
-        {error && <p className="text-red-600 text-sm">{error}</p>}
+        {error && <p className="text-red-700 text-sm">{error}</p>}
         <button
           disabled={loading}
           className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 disabled:opacity-60"
@@ -63,7 +63,7 @@ export default function RegisterPage() {
         </button>
       </form>
 
-      <p className="text-sm text-gray-500 mt-3">
+      <p className="text-sm text-gray-700 mt-3">
         Already have an account? <a className="text-blue-600 underline" href="/auth/login">Login</a>
       </p>
     </div>
