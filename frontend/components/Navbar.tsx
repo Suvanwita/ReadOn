@@ -1,52 +1,41 @@
 "use client";
 
 import Link from "next/link";
-import { getToken, removeToken, parseJwt } from "@/lib/auth";
 import { useEffect, useState } from "react";
-
-type TokenPayload = { id: string; isAdmin?: boolean; exp: number };
+import { getCart } from "@/lib/api";
 
 export default function Navbar() {
-  const [authed, setAuthed] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
 
   useEffect(() => {
-    const t = getToken();
-    setAuthed(!!t);
-    if (t) {
+    async function fetchCart() {
       try {
-        const payload = parseJwt<TokenPayload>(t);
-        setIsAdmin(!!payload?.isAdmin);
+        const data = await getCart();
+        setCartCount(data.length);
       } catch {
-        setIsAdmin(false);
+        setCartCount(0);
       }
     }
+    fetchCart();
   }, []);
 
-  const logout = () => {
-    removeToken();
-    window.location.href = "/auth/login";
-  };
-
   return (
-    <nav className="bg-white shadow">
-      <div className="container mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
-        <Link href="/" className="text-xl font-extrabold text-blue-600">BookTracker</Link>
-        <div className="flex items-center gap-4">
-          <Link href="/books" className="hover:underline">Books</Link>
-          {isAdmin && <Link href="/books/add" className="hover:underline">Add Book</Link>}
-          {authed ? (
-            <>
-              <Link href="/dashboard" className="hover:underline">Dashboard</Link>
-              <button onClick={logout} className="text-red-600 hover:underline">Logout</button>
-            </>
-          ) : (
-            <>
-              <Link href="/auth/login" className="hover:underline">Login</Link>
-              <Link href="/auth/register" className="hover:underline">Register</Link>
-            </>
+    <nav className="bg-blue-600 text-white px-6 py-4 flex justify-between items-center">
+      <Link href="/" className="text-2xl font-bold">
+        📖 ReadOn
+      </Link>
+      <div className="space-x-6 flex items-center">
+        <Link href="/dashboard">Dashboard</Link>
+        <Link href="/books">Books</Link>
+        <Link href="/cart" className="relative">
+          Cart
+          {cartCount > 0 && (
+            <span className="absolute -top-2 -right-3 bg-red-500 text-xs px-2 py-0.5 rounded-full">
+              {cartCount}
+            </span>
           )}
-        </div>
+        </Link>
+        <Link href="/auth/login">Login</Link>
       </div>
     </nav>
   );
