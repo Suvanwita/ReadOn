@@ -21,7 +21,7 @@ export default function LoginPage() {
       const token: string = res.data?.token;
       if (!token) throw new Error("Token not received");
       setToken(token);
-      router.replace("/dashboard");
+      router.replace("/");
     } catch (err: any) {
       setError(err?.response?.data?.message || "Login failed");
     } finally {
@@ -31,7 +31,7 @@ export default function LoginPage() {
 
   return (
     <div className="max-w-md mx-auto bg-white p-6 rounded-2xl shadow mt-10">
-      <h2 className="text-2xl font-bold mb-2">Login</h2>
+      <h2 className="text-2xl font-bold mb-2 text-gray-800">Login</h2>
       <p className="text-gray-500 mb-4">Use your account to continue.</p>
 
       <form onSubmit={onSubmit} className="space-y-3">
@@ -39,14 +39,14 @@ export default function LoginPage() {
           type="email"
           required
           placeholder="Email"
-          className="w-full border rounded p-2"
+          className="w-full border rounded p-2 text-gray-700"
           value={email} onChange={(e)=>setEmail(e.target.value)}
         />
         <input
           type="password"
           required
           placeholder="Password"
-          className="w-full border rounded p-2"
+          className="w-full border rounded p-2 text-gray-700"
           value={password} onChange={(e)=>setPassword(e.target.value)}
         />
         {error && <p className="text-red-600 text-sm">{error}</p>}
